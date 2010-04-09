@@ -7,17 +7,16 @@
 #
 # examples:
 # 
-# # specify both master and slave db configs
-# monitor = MysqlReplicationMonitor.new(:master => 'master', :slave => 'slave)
-# # default slave to the current environment
-# monitor = MysqlReplicationMonitor.new(:master => 'master')
-# # override the default time to cache the statuses (in seconds)
-# monitor = MysqlReplicationMonitor.new(:master => 'master', :slave => 'slave,
-#                                     :refresh_time => 10)
-# # override the default database config file (not recommended)
-# monitor = MysqlReplicationMonitor.new(:master => 'master', :slave => 'slave,
-#                                     :db_config_file => 'foofile.txt')
-#
+#   # specify both master and slave db configs
+#   monitor = MysqlReplicationMonitor.new(:master => 'master', :slave => 'slave)
+#   # default slave to the current environment
+#   monitor = MysqlReplicationMonitor.new(:master => 'master')
+#   # override the default time to cache the statuses (in seconds)
+#   monitor = MysqlReplicationMonitor.new(:master => 'master', :slave => 'slave,
+#                                         :refresh_time => 10)
+#   # override the default database config file (not recommended)
+#   monitor = MysqlReplicationMonitor.new(:master => 'master', :slave => 'slave,
+#                                         :db_config_file => 'foofile.txt')
 #-------------------------------------------------------------------------------
 class MysqlReplicationMonitor
 
@@ -130,6 +129,16 @@ class MysqlReplicationMonitor
     cache_check_or_refresh
 
     @slave_status['Slave_SQL_Running'].downcase == 'yes'
+  end
+
+
+  # returns slave's report of seconds behind master. note: this isn't super-
+  # reliable, especially if the I/O thread is not running.
+  #-----------------------------------------------------------------------------
+  def seconds_behind
+    cache_check_or_refresh
+
+    @slave_status['Seconds_Behind_Master'].to_i
   end
 
 

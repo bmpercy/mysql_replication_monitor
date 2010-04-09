@@ -1,5 +1,5 @@
 mysql_replication_monitor
-========
+---
 
 Utility to check the replication status between MySQL master and slave
 dbs set up to replicate to each other
@@ -9,7 +9,7 @@ config (environment) names (e.g. 'staging_master', 'staging_slave' or
 whatever).
 
 Examples
-=========
+---
  
   # specify both master and slave db configs
   monitor = MysqlReplicationMonitor.new(:master => 'master', :slave => 'slave)
