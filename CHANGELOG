@@ -1,0 +1,4 @@
+0.1.5
+-----
+* added option to raw_slave_status to prevent status refreshing since last status call if desired
+
